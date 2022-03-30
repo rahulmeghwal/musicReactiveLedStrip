@@ -28,15 +28,13 @@ void loop() {
   valR = ( updateLEDs > 8 || updateLEDs == 4) * 255;
   valG = ( updateLEDs > 5 && updateLEDs < 8 ) * 255;
   valB = ( updateLEDs > 1 || updateLEDs == 8 ) * 255;
-  for(int i = 0; i < updateLEDs; i++) {
+  
+  for(int i = NUM_LEDS-1; i >= NUM_LEDS - 1 - updateLEDs; i--) {
     leds[i] = CRGB(valR,valG,valB);  
   }
-  for(int i = 0; i < updateLEDs; i++) {
-    leds[i] = CRGB(valR,valG,valB);  
-  }
-
-  for(int i = NUM_LEDS - 1; i >= updateLEDs; i--) {
-    leds[i] = leds[i - updateLEDs];
+  
+  for(int i = 0; i <= NUM_LEDS - updateLEDs -2; i++) {
+    leds[i] = leds[i + updateLEDs];
   }
   FastLED.show();
   while(Serial.available()) {
